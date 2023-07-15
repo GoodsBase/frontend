@@ -1,0 +1,18 @@
+.container {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    flex-shrink: 0;
+    padding-bottom: 5px;
+    margin-bottom: 5px;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+}
+
+.title {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}

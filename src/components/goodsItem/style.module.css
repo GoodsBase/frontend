@@ -1,0 +1,38 @@
+.item {
+    display: flex;
+    flex-direction: column;
+    height: 75px;
+    justify-content: center;
+    padding-left: 8px;
+    padding-right: 16px;
+    gap: 8px;
+}
+
+.bottomRow {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+}
+
+.name {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.barcode {
+    color: rgba(0, 0, 0, 0.75);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    flex-grow: 1;
+}
+
+.price {
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}

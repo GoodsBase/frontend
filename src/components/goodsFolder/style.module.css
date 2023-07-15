@@ -1,0 +1,28 @@
+.folder {
+    display: flex;
+    height: 75px;
+    align-items: center;
+    padding-left: 8px;
+}
+
+.labels {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 8px;
+}
+
+.name {
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.itemsCount {
+    color: rgba(0, 0, 0, 0.75);
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
