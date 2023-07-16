@@ -32,7 +32,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build project
-        run: pnpm exec vite build --base=/frontend
+        run: pnpm exec vite build --base=/frontend/
       - uses: actions/configure-pages@v3
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v2
