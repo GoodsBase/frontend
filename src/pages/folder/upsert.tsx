@@ -1,5 +1,5 @@
 import { useMatch, useNavigate, useParams } from '@solidjs/router'
-import { Component, createEffect, createMemo, createSignal } from 'solid-js'
+import { Component, createMemo, createSignal } from 'solid-js'
 import { Page } from '../../components/page'
 import { Header } from '../../components/header'
 import { BackButton } from '../../components/backButton'
@@ -18,7 +18,6 @@ export const FolderUpsert: Component = () => {
     const folder = createMemo(() => foldersStore[params.id!])
 
     const isCreate = useMatch(() => `${base}/folder/create/:id?`)
-    createEffect(() => console.log(isCreate()))
 
     const [name, setName] = createSignal<string>(
         (!isCreate() && folder()?.name) || '',
