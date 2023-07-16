@@ -14,12 +14,10 @@ import { base } from '../../environment'
 
 export const FolderUpsert: Component = () => {
     const params = useParams<{ id?: string }>()
-    const folderId = createMemo(() =>
-        !params.id || params.id === 'null' ? null : params.id,
-    )
+    const folderId = createMemo(() => params.id ?? null)
     const folder = createMemo(() => foldersStore[params.id!])
 
-    const isCreate = useMatch(() => `${base}/folder/create/:id`)
+    const isCreate = useMatch(() => `${base}/folder/create/:id?`)
     createEffect(() => console.log(isCreate()))
 
     const [name, setName] = createSignal<string>(

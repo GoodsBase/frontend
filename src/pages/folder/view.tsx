@@ -30,7 +30,7 @@ export const FolderView: Component = () => {
                     () => (
                         <IconButton
                             onClick={() => {
-                                navigate(`/folder/create/${folderId()}`)
+                                navigate(`/folder/create/${folderId() ?? ''}`)
                             }}
                         >
                             <IconFolderPlus size={48} />
@@ -39,7 +39,7 @@ export const FolderView: Component = () => {
                     () => (
                         <IconButton
                             onClick={() => {
-                                navigate(`/item/create/${folderId()}`)
+                                navigate(`/item/create/${folderId() ?? ''}`)
                             }}
                         >
                             <IconCubePlus size={48} />

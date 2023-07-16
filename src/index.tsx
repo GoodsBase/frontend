@@ -13,9 +13,8 @@ render(
     () => (
         <Router base={base}>
             <Routes>
-                <Route path="/" component={FolderView} />
-                <Route path="/folder/:id" component={FolderView} />
-                <Route path="/folder/create/:id" component={FolderUpsert} />
+                <Route path={['/', '/folder/:id']} component={FolderView} />
+                <Route path="/folder/create/:id?" component={FolderUpsert} />
                 <Route path="/folder/:id/edit" component={FolderUpsert} />
             </Routes>
         </Router>

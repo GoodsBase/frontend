@@ -1,4 +1,4 @@
-import { Component, For, createEffect, createMemo } from 'solid-js'
+import { Component, For, createMemo } from 'solid-js'
 import { GoodsItem } from '../goodsItem'
 import { GoodsFolder } from '../goodsFolder'
 import { foldersStore, itemsStore } from '../../stores/goods'
