@@ -1,28 +1,37 @@
 import { useMatch, useNavigate, useParams } from '@solidjs/router'
-import { Component, createMemo } from 'solid-js'
+import { Component, createEffect, createMemo } from 'solid-js'
 import { Page } from '../../components/page'
 import { Header } from '../../components/header'
 import { BackButton } from '../../components/backButton'
-import { foldersStore, itemsStore, setItemsStore } from '../../stores/goods'
+import {
+    foldersStore,
+    itemsStore,
+    removeItem,
+    setItemsStore,
+} from '../../stores/goods'
 import { Footer } from '../../components/footer'
 import { PageContent } from '../../components/pageContent'
 import { createId } from '@paralleldrive/cuid2'
 import { GoodsFolder, GoodsItem } from '../../types/goods'
 import { IconButton } from '../../components/iconButton'
-import { IconCheck } from '@tabler/icons-solidjs'
+import { IconCheck, IconTrash } from '@tabler/icons-solidjs'
 import { base } from '../../environment'
 import { createStore } from 'solid-js/store'
 
 export const ItemUpsert: Component = () => {
     const params = useParams<{ id?: string; folderId?: string }>()
-    const folderId = createMemo(() => params.folderId ?? null)
-    const parentFolder = createMemo<GoodsFolder | undefined>(
-        () => foldersStore[params.folderId!],
+    const storedItem: GoodsItem | undefined = itemsStore[params.id!]
+
+    const folderId = createMemo(
+        () => params.folderId ?? storedItem?.folderId ?? null,
     )
+    const parentFolder = createMemo<GoodsFolder | undefined>(
+        () => foldersStore[folderId()!],
+    )
+    createEffect(() => console.log(parentFolder()))
 
     const isCreate = useMatch(() => `${base}/item/create/:folderId?`)
 
-    const storedItem: GoodsItem | undefined = itemsStore[params.id!]
     const [item, setItem] = createStore<GoodsItem>({
         folderId: storedItem?.folderId ?? folderId(),
         name: storedItem?.name ?? '',
@@ -47,6 +56,12 @@ export const ItemUpsert: Component = () => {
         navigate(-1)
     }
 
+    function remove() {
+        if (!confirm(`Видалити товар "${item.name}"?`)) return
+        removeItem(params.id!)
+        navigate(-1)
+    }
+
     return (
         <Page>
             <Header
@@ -54,6 +69,19 @@ export const ItemUpsert: Component = () => {
                 title={isCreate() ? 'Новий товар' : 'Редагування товару'}
                 subtitle={
                     parentFolder() && `Усередині "${parentFolder()?.name}"`
+                }
+                actions={
+                    isCreate()
+                        ? undefined
+                        : [
+                              () => {
+                                  return (
+                                      <IconButton onClick={remove}>
+                                          <IconTrash size={48} />
+                                      </IconButton>
+                                  )
+                              },
+                          ]
                 }
             />
             <PageContent>

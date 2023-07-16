@@ -74,3 +74,10 @@ export function removeFolder(id: string) {
         return state
     })
 }
+
+export function removeItem(id: string) {
+    setItemsStore((state) => {
+        delete state[id]
+        return state
+    })
+}
