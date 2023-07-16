@@ -8,9 +8,11 @@ import { FolderUpsert } from './pages/folder/upsert'
 
 const root = document.getElementById('root')
 
+const base = import.meta.env.BASE_URL
+
 render(
     () => (
-        <Router>
+        <Router base={base}>
             <Routes>
                 <Route path="/" component={FolderView} />
                 <Route path="/folder/:id" component={FolderView} />
