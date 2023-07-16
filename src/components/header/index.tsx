@@ -1,10 +1,11 @@
-import { Component } from 'solid-js'
+import { Component, For } from 'solid-js'
 import style from './style.module.css'
 
 type Props = {
     Icon?: Component
     title: string
     subtitle?: string
+    actions?: Component[]
 }
 
 export const Header: Component<Props> = (props) => {
@@ -17,6 +18,15 @@ export const Header: Component<Props> = (props) => {
                     <span class={style.subtitle}>{props.subtitle}</span>
                 )}
             </div>
+            {props.actions && (
+                <div>
+                    <For each={props.actions}>
+                        {(Element) => {
+                            return <Element />
+                        }}
+                    </For>
+                </div>
+            )}
         </div>
     )
 }

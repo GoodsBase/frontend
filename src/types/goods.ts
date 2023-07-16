@@ -1,5 +1,4 @@
 export type GoodsItem = {
-    id: string
     name: string
     barcode: string
     price: number
@@ -8,7 +7,6 @@ export type GoodsItem = {
 }
 
 export type GoodsFolder = {
-    id: string
     name: string
     itemsCount: number
     folderId: string | null

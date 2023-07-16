@@ -9,12 +9,10 @@ type Props = {
 }
 
 export const GoodsFolder: Component<Props> = (props) => {
-    const folder = createMemo(
-        () => foldersStore.find((folder) => folder.id === props.id)!,
-    )
+    const folder = createMemo(() => foldersStore[props.id])
 
     return (
-        <A href={`/folder/${folder().id}`}>
+        <A href={`/folder/${props.id}`}>
             <div class={style.folder}>
                 <div class={style.labels}>
                     <span class={style.name}>{folder().name}</span>

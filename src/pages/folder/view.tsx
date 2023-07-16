@@ -15,7 +15,7 @@ export const FolderView: Component = () => {
 
     return (
         <Page>
-            <FolderHeader folderId={folderId()} />
+            <FolderHeader id={folderId()} />
             <PageContent>
                 <GoodsList folderId={folderId()} />
             </PageContent>

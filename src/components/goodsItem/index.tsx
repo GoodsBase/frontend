@@ -7,9 +7,7 @@ type Props = {
 }
 
 export const GoodsItem: Component<Props> = (props) => {
-    const item = createMemo(
-        () => itemsStore.find((item) => item.id === props.id)!,
-    )
+    const item = createMemo(() => itemsStore[props.id])
 
     return (
         <div class={style.item}>
