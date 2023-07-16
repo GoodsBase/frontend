@@ -19,8 +19,6 @@ export const GoodsList: Component<Props> = (props) => {
         ),
     )
 
-    createEffect(() => console.log(folders()))
-
     return (
         <>
             <For each={folders()}>

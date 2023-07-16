@@ -32,7 +32,7 @@ export const [foldersStore, setFoldersStore] = createStore<
 >({
     a: { name: 'Фрукти', itemsCount: 18, folderId: null },
     b: { name: 'Овочі', itemsCount: 35, folderId: null },
-    c: { name: 'Яблука', itemsCount: 22, folderId: null },
+    c: { name: 'Яблука', itemsCount: 22, folderId: 'a' },
     d: { name: 'Яблука', itemsCount: 22, folderId: null },
     e: { name: 'Яблука', itemsCount: 22, folderId: null },
     f: { name: 'Яблука', itemsCount: 22, folderId: null },

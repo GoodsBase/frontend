@@ -5,10 +5,9 @@ import { Route, Router, Routes } from '@solidjs/router'
 import './index.css'
 import { FolderView } from './pages/folder/view'
 import { FolderUpsert } from './pages/folder/upsert'
+import { base } from './environment'
 
 const root = document.getElementById('root')
-
-const base = import.meta.env.BASE_URL
 
 render(
     () => (
