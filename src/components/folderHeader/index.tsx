@@ -1,6 +1,6 @@
 import { Component, Show, createMemo } from 'solid-js'
-import { IconPackage, IconEdit } from '@tabler/icons-solidjs'
-import { foldersStore } from '../../stores/goods'
+import { IconPackage, IconEdit, IconTrash } from '@tabler/icons-solidjs'
+import { foldersStore, removeFolder } from '../../stores/goods'
 import { Header } from '../header'
 import { BackButton } from '../backButton'
 import { IconButton } from '../iconButton'
@@ -14,6 +14,12 @@ export const FolderHeader: Component<Props> = (props) => {
     const folder = createMemo(() => (props.id ? foldersStore[props.id] : null))
 
     const navigate = useNavigate()
+
+    function remove() {
+        if (!confirm(`Видалити папку "${folder()!.name}"?`)) return
+        removeFolder(props.id!)
+        navigate(-1)
+    }
 
     return (
         <Header
@@ -34,6 +40,11 @@ export const FolderHeader: Component<Props> = (props) => {
                                   }
                               >
                                   <IconEdit size={48} />
+                              </IconButton>
+                          ),
+                          () => (
+                              <IconButton onClick={remove}>
+                                  <IconTrash size={48} />
                               </IconButton>
                           ),
                       ]

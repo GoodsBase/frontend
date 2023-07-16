@@ -6,6 +6,12 @@ import { Footer } from '../../components/footer'
 import { useNavigate, useParams } from '@solidjs/router'
 import { Page } from '../../components/page'
 import { PageContent } from '../../components/pageContent'
+import { IconButton } from '../../components/iconButton'
+import {
+    IconCubePlus,
+    IconFolderPlus,
+    IconListSearch,
+} from '@tabler/icons-solidjs'
 
 export const FolderView: Component = () => {
     const params = useParams<{ id?: string }>()
@@ -20,17 +26,35 @@ export const FolderView: Component = () => {
                 <GoodsList folderId={folderId()} />
             </PageContent>
             <Footer
-                actions={[
+                leftActions={[
                     () => (
-                        <>
-                            <button
-                                onclick={() => {
-                                    navigate(`/folder/create/${folderId()}`)
-                                }}
-                            >
-                                + Папка
-                            </button>
-                        </>
+                        <IconButton
+                            onClick={() => {
+                                navigate(`/folder/create/${folderId()}`)
+                            }}
+                        >
+                            <IconFolderPlus size={48} />
+                        </IconButton>
+                    ),
+                    () => (
+                        <IconButton
+                            onClick={() => {
+                                navigate(`/item/create/${folderId()}`)
+                            }}
+                        >
+                            <IconCubePlus size={48} />
+                        </IconButton>
+                    ),
+                ]}
+                rightActions={[
+                    () => (
+                        <IconButton
+                            onClick={() => {
+                                navigate(`/search`)
+                            }}
+                        >
+                            <IconListSearch size={48} />
+                        </IconButton>
                     ),
                 ]}
             />

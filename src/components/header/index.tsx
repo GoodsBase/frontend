@@ -19,7 +19,7 @@ export const Header: Component<Props> = (props) => {
                 )}
             </div>
             {props.actions && (
-                <div>
+                <div class={style.actions}>
                     <For each={props.actions}>
                         {(Element) => {
                             return <Element />
