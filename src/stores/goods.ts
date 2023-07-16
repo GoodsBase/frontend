@@ -32,7 +32,13 @@ export const [foldersStore, setFoldersStore] = createStore<
 >({
     a: { name: 'Фрукти', itemsCount: 18, folderId: null },
     b: { name: 'Овочі', itemsCount: 35, folderId: null },
-    c: { name: 'Яблука', itemsCount: 22, folderId: 'a' },
+    c: { name: 'Яблука', itemsCount: 22, folderId: null },
+    d: { name: 'Яблука', itemsCount: 22, folderId: null },
+    e: { name: 'Яблука', itemsCount: 22, folderId: null },
+    f: { name: 'Яблука', itemsCount: 22, folderId: null },
+    g: { name: 'Яблука', itemsCount: 22, folderId: null },
+    h: { name: 'Яблука', itemsCount: 22, folderId: null },
+    i: { name: 'Яблука', itemsCount: 22, folderId: null },
 })
 
 export function removeFolder(id: string) {
