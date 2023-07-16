@@ -1,30 +1,33 @@
 import { Component, For } from 'solid-js'
-import { GoodsTree } from '../../types/goods'
 import { GoodsItem } from '../goodsItem'
 import { GoodsFolder } from '../goodsFolder'
-import style from './style.module.css'
+import { foldersStore, itemsStore } from '../../stores/goods'
 
 type Props = {
-    tree: GoodsTree
+    folderId: string | null
 }
 
 export const GoodsList: Component<Props> = (props) => {
     return (
-        <div class={style.container}>
-            <For each={props.tree}>
-                {(element) => {
-                    return (
-                        <>
-                            {element.type === 'item' && (
-                                <GoodsItem {...element} />
-                            )}
-                            {element.type === 'folder' && (
-                                <GoodsFolder {...element} />
-                            )}
-                        </>
-                    )
+        <>
+            <For
+                each={foldersStore.filter(
+                    (folder) => folder.folderId === props.folderId,
+                )}
+            >
+                {(folder) => {
+                    return <GoodsFolder id={folder.id} />
                 }}
             </For>
-        </div>
+            <For
+                each={itemsStore.filter(
+                    (item) => item.folderId === props.folderId,
+                )}
+            >
+                {(item) => {
+                    return <GoodsItem id={item.id} />
+                }}
+            </For>
+        </>
     )
 }

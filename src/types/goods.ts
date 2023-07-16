@@ -1,16 +1,15 @@
 export type GoodsItem = {
-    type: 'item'
+    id: string
     name: string
     barcode: string
     price: number
     measurmentUnit: string
+    folderId: string | null
 }
 
 export type GoodsFolder = {
-    type: 'folder'
+    id: string
     name: string
     itemsCount: number
-    childern: GoodsTree
+    folderId: string | null
 }
-
-export type GoodsTree = Array<GoodsFolder | GoodsItem>

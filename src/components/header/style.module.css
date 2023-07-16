@@ -16,3 +16,16 @@
     font-weight: 700;
     line-height: normal;
 }
+
+.subtitle {
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+}
+
+.labels {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}

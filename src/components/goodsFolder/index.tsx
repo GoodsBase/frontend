@@ -1,20 +1,29 @@
-import { Component } from 'solid-js'
+import { Component, createMemo } from 'solid-js'
 import { IconChevronRight } from '@tabler/icons-solidjs'
 import style from './style.module.css'
+import { foldersStore } from '../../stores/goods'
+import { A } from '@solidjs/router'
 
 type Props = {
-    name: string
-    itemsCount: number
+    id: string
 }
 
 export const GoodsFolder: Component<Props> = (props) => {
+    const folder = createMemo(
+        () => foldersStore.find((folder) => folder.id === props.id)!,
+    )
+
     return (
-        <div class={style.folder}>
-            <div class={style.labels}>
-                <span class={style.name}>{props.name}</span>
-                <span class={style.itemsCount}>{props.itemsCount} товарів</span>
+        <A href={`/folder/${folder().id}`}>
+            <div class={style.folder}>
+                <div class={style.labels}>
+                    <span class={style.name}>{folder().name}</span>
+                    <span class={style.itemsCount}>
+                        {folder().itemsCount} товарів
+                    </span>
+                </div>
+                <IconChevronRight size={48} />
             </div>
-            <IconChevronRight size={48} />
-        </div>
+        </A>
     )
 }
