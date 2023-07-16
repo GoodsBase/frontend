@@ -3,7 +3,12 @@ import { Component, createEffect, createMemo, createSignal } from 'solid-js'
 import { Page } from '../../components/page'
 import { Header } from '../../components/header'
 import { BackButton } from '../../components/backButton'
-import { foldersStore, setFoldersStore } from '../../stores/goods'
+import {
+    foldersStore,
+    itemsStore,
+    setFoldersStore,
+    setItemsStore,
+} from '../../stores/goods'
 import { Footer } from '../../components/footer'
 import { PageContent } from '../../components/pageContent'
 import { createId } from '@paralleldrive/cuid2'
@@ -46,6 +51,41 @@ export const FolderUpsert: Component = () => {
         navigate(-1)
     }
 
+    function remove() {
+        const foldersIdsToDelete = [params.id!]
+        const itemsIdsToDelete: string[] = []
+
+        const folders = Object.entries(foldersStore)
+        const items = Object.entries(itemsStore)
+
+        for (const folderId of foldersIdsToDelete) {
+            folders.forEach(([id, folder]) => {
+                if (folder.folderId === folderId) {
+                    foldersIdsToDelete.push(id)
+                }
+            })
+            items.forEach(([id, item]) => {
+                if (item.folderId === folderId) {
+                    itemsIdsToDelete.push(id)
+                }
+            })
+        }
+
+        setFoldersStore((state) => {
+            for (const id of foldersIdsToDelete) {
+                delete state[id]
+            }
+            return state
+        })
+        setItemsStore((state) => {
+            for (const id of itemsIdsToDelete) {
+                delete state[id]
+            }
+            return state
+        })
+        navigate(-2)
+    }
+
     const actions = createMemo(() => {
         const actions: Component[] = [
             () => {
@@ -58,7 +98,7 @@ export const FolderUpsert: Component = () => {
         ]
         if (!isCreate()) {
             actions.push(() => {
-                return <button>Видалити</button>
+                return <button onClick={remove}>Видалити</button>
             })
         }
         return actions
