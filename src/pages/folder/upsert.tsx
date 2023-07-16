@@ -3,7 +3,11 @@ import { Component, createMemo, createSignal } from 'solid-js'
 import { Page } from '../../components/page'
 import { Header } from '../../components/header'
 import { BackButton } from '../../components/backButton'
-import { foldersStore, setFoldersStore } from '../../stores/goods'
+import {
+    foldersStore,
+    saveToStorage,
+    setFoldersStore,
+} from '../../stores/goods'
 import { Footer } from '../../components/footer'
 import { PageContent } from '../../components/pageContent'
 import { createId } from '@paralleldrive/cuid2'
@@ -43,6 +47,7 @@ export const FolderUpsert: Component = () => {
             }))
         }
 
+        saveToStorage()
         navigate(-1)
     }
 

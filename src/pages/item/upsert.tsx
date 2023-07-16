@@ -7,6 +7,7 @@ import {
     foldersStore,
     itemsStore,
     removeItem,
+    saveToStorage,
     setItemsStore,
 } from '../../stores/goods'
 import { Footer } from '../../components/footer'
@@ -53,6 +54,7 @@ export const ItemUpsert: Component = () => {
             setItemsStore(params.id!, item)
         }
 
+        saveToStorage()
         navigate(-1)
     }
 

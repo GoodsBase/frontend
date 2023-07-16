@@ -3,43 +3,11 @@ import { GoodsFolder, GoodsItem } from '../types/goods'
 
 export const [itemsStore, setItemsStore] = createStore<
     Record<string, GoodsItem>
->({
-    a: {
-        name: 'Ківі',
-        barcode: '1245968578126',
-        price: 123.5,
-        measurmentUnit: 'кг',
-        folderId: null,
-    },
-    b: {
-        name: 'Банан',
-        barcode: '1245968578126',
-        price: 250,
-        measurmentUnit: 'кг',
-        folderId: 'a',
-    },
-    c: {
-        name: 'Авокадо',
-        barcode: '1245968578126',
-        price: 180.35,
-        measurmentUnit: 'кг',
-        folderId: 'b',
-    },
-})
+>({})
 
 export const [foldersStore, setFoldersStore] = createStore<
     Record<string, GoodsFolder>
->({
-    a: { name: 'Фрукти', itemsCount: 18, folderId: null },
-    b: { name: 'Овочі', itemsCount: 35, folderId: null },
-    c: { name: 'Яблука', itemsCount: 22, folderId: 'a' },
-    d: { name: 'Яблука', itemsCount: 22, folderId: null },
-    e: { name: 'Яблука', itemsCount: 22, folderId: null },
-    f: { name: 'Яблука', itemsCount: 22, folderId: null },
-    g: { name: 'Яблука', itemsCount: 22, folderId: null },
-    h: { name: 'Яблука', itemsCount: 22, folderId: null },
-    i: { name: 'Яблука', itemsCount: 22, folderId: null },
-})
+>({})
 
 export function removeFolder(id: string) {
     const foldersIdsToDelete = [id]
@@ -73,6 +41,8 @@ export function removeFolder(id: string) {
         }
         return state
     })
+
+    saveToStorage()
 }
 
 export function removeItem(id: string) {
@@ -80,4 +50,33 @@ export function removeItem(id: string) {
         delete state[id]
         return state
     })
+
+    saveToStorage()
 }
+
+type State = {
+    folders: Record<string, GoodsFolder>
+    items: Record<string, GoodsItem>
+}
+
+const key = 'state'
+
+export function loadFromStorage() {
+    const stored = localStorage.getItem(key)
+    if (stored !== null) {
+        const parsed = JSON.parse(stored) as State
+        setFoldersStore(parsed.folders)
+        setItemsStore(parsed.items)
+    }
+}
+
+export function saveToStorage() {
+    const state: State = {
+        folders: foldersStore,
+        items: itemsStore,
+    }
+
+    localStorage.setItem(key, JSON.stringify(state))
+}
+
+loadFromStorage()
