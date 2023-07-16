@@ -16,11 +16,10 @@ import { GoodsFolder } from '../../types/goods'
 
 export const FolderUpsert: Component = () => {
     const params = useParams<{ id?: string }>()
+    const folderId = createMemo(() =>
+        !params.id || params.id === 'null' ? null : params.id,
+    )
     const folder = createMemo(() => foldersStore[params.id!])
-
-    createEffect(() => {
-        console.log(foldersStore)
-    })
 
     const isCreate = useMatch(() => '/folder/create/:id')
 
@@ -35,7 +34,7 @@ export const FolderUpsert: Component = () => {
             const id = createId()
 
             const folder: GoodsFolder = {
-                folderId: params.id ?? null,
+                folderId: folderId(),
                 itemsCount: NaN,
                 name: name(),
             }
