@@ -8,25 +8,29 @@ import { FolderUpsert } from './pages/folder/upsert'
 import { base } from './environment'
 import { ItemUpsert } from './pages/item/upsert'
 import { SearchPage } from './pages/search'
+import { BarcodeDialog } from './components/barcodeScanner'
 
 const root = document.getElementById('root')
 
 render(
     () => (
-        <Router base={base}>
-            <Routes>
-                <Route path={['/', '/folder/:id']} component={FolderView} />
-                <Route
-                    path={['/folder/create/:id?', '/folder/:id/edit']}
-                    component={FolderUpsert}
-                />
-                <Route
-                    path={['/item/create/:folderId?', '/item/:id']}
-                    component={ItemUpsert}
-                />
-                <Route path={'/search'} component={SearchPage} />
-            </Routes>
-        </Router>
+        <>
+            <BarcodeDialog />
+            <Router base={base}>
+                <Routes>
+                    <Route path={['/', '/folder/:id']} component={FolderView} />
+                    <Route
+                        path={['/folder/create/:id?', '/folder/:id/edit']}
+                        component={FolderUpsert}
+                    />
+                    <Route
+                        path={['/item/create/:folderId?', '/item/:id']}
+                        component={ItemUpsert}
+                    />
+                    <Route path={'/search'} component={SearchPage} />
+                </Routes>
+            </Router>
+        </>
     ),
     root!,
 )

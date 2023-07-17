@@ -1,0 +1,19 @@
+.container {
+    border: 1px solid;
+    border-radius: 10px;
+    display: flex;
+}
+
+.input {
+    border: none;
+    margin: 0;
+    border-radius: 10px 0 0 10px;
+}
+
+.button {
+    padding: 0 10px;
+    background-color: transparent;
+    color: inherit;
+    border-radius: 0 10px 10px 0;
+    border-left: 1px solid;
+}

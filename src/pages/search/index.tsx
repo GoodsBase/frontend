@@ -1,43 +1,18 @@
-import { Component, onMount } from 'solid-js'
-import Quagga from '@ericblade/quagga2'
+import { Component, createSignal } from 'solid-js'
+import { Page } from '../../components/page'
+import { BarcodeInput } from '../../components/barcodeInput'
+import { Header } from '../../components/header'
+import { BackButton } from '../../components/backButton'
 
 export const SearchPage: Component = () => {
-    let ref!: HTMLDivElement
+    const barcodeSignal = createSignal('')
 
-    onMount(() => {
-        Quagga.init(
-            {
-                inputStream: {
-                    name: 'Live',
-                    type: 'LiveStream',
-                    target: ref,
-                    constraints: {
-                        facingMode: 'environment',
-                    },
-                },
-                decoder: {
-                    readers: [
-                        'ean_reader',
-                        'code_128_reader',
-                        'i2of5_reader',
-                        'upc_reader',
-                    ],
-                },
-            },
-            function (error) {
-                if (error) {
-                    console.error('Error initializing Quagga', error)
-                    return
-                }
-
-                Quagga.start()
-                Quagga.onDetected((event) => {
-                    Quagga.stop()
-                    alert(event.codeResult.code)
-                })
-            },
-        )
-    })
-
-    return <div ref={ref}></div>
+    return (
+        <Page>
+            <Header title="Пошук" Icon={() => <BackButton />} />
+            <BarcodeInput
+                {...{ barcodeSignal, placeholder: 'Назва чи штрих-код' }}
+            />
+        </Page>
+    )
 }
