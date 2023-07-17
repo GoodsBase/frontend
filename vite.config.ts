@@ -3,7 +3,6 @@ import solid from 'vite-plugin-solid'
 import { VitePWA } from 'vite-plugin-pwa'
 
 export default defineConfig({
-    base: '/frontend',
     plugins: [
         solid(),
         // VitePWA({
