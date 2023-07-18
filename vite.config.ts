@@ -17,10 +17,16 @@ export default defineConfig({
                 theme_color: '#ffffff',
                 icons: [
                     {
+                        src: 'icon.svg',
+                        type: 'image/svg+xml',
+                        sizes: 'any',
+                        purpose: 'any',
+                    },
+                    {
                         src: 'maskable.svg',
                         type: 'image/svg+xml',
-                        sizes: '72x72 96x96 120x120 128x128 144x144 152x152 180x180 192x192 384x384',
-                        purpose: 'any maskable',
+                        sizes: 'any',
+                        purpose: 'maskable',
                     },
                     {
                         src: 'bigicon.png',
