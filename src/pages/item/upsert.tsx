@@ -4,6 +4,7 @@ import { Page } from '../../components/page'
 import { Header } from '../../components/header'
 import { BackButton } from '../../components/backButton'
 import {
+    changeFolderItemsCount,
     foldersStore,
     itemsStore,
     removeItem,
@@ -56,6 +57,7 @@ export const ItemUpsert: Component = () => {
                 ...itemsStore,
                 [id]: { ...item, barcode: barcode() },
             })
+            changeFolderItemsCount(folderId(), 1)
         } else {
             setItemsStore(params.id!, { ...item, barcode: barcode() })
         }

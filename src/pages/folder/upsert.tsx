@@ -35,7 +35,7 @@ export const FolderUpsert: Component = () => {
 
             const folder: GoodsFolder = {
                 folderId: folderId(),
-                itemsCount: NaN,
+                itemsCount: 0,
                 name: name(),
             }
 

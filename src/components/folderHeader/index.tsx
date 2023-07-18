@@ -1,6 +1,10 @@
 import { Component, Show, createMemo } from 'solid-js'
 import { IconPackage, IconEdit, IconTrash } from '@tabler/icons-solidjs'
-import { foldersStore, removeFolder } from '../../stores/goods'
+import {
+    foldersStore,
+    getFolderItemsCount,
+    removeFolder,
+} from '../../stores/goods'
 import { Header } from '../header'
 import { BackButton } from '../backButton'
 import { IconButton } from '../iconButton'
@@ -29,7 +33,7 @@ export const FolderHeader: Component<Props> = (props) => {
                 </Show>
             )}
             title={folder()?.name ?? 'GoodsBase'}
-            subtitle={`${folder()?.itemsCount} товарів`}
+            subtitle={`${getFolderItemsCount(props.id)} товарів`}
             actions={
                 folder()
                     ? [
