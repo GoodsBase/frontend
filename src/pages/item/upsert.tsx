@@ -1,5 +1,5 @@
 import { useMatch, useNavigate, useParams } from '@solidjs/router'
-import { Component, createEffect, createMemo } from 'solid-js'
+import { Component, createEffect, createMemo, createSignal } from 'solid-js'
 import { Page } from '../../components/page'
 import { Header } from '../../components/header'
 import { BackButton } from '../../components/backButton'
@@ -18,6 +18,7 @@ import { IconButton } from '../../components/iconButton'
 import { IconCheck, IconTrash } from '@tabler/icons-solidjs'
 import { base } from '../../environment'
 import { createStore } from 'solid-js/store'
+import { BarcodeInput } from '../../components/barcodeInput'
 
 export const ItemUpsert: Component = () => {
     const params = useParams<{ id?: string; folderId?: string }>()
@@ -33,10 +34,12 @@ export const ItemUpsert: Component = () => {
 
     const isCreate = useMatch(() => `${base}/item/create/:folderId?`)
 
-    const [item, setItem] = createStore<GoodsItem>({
+    const barcodeSignal = createSignal(storedItem?.barcode ?? '')
+    const [barcode] = barcodeSignal
+
+    const [item, setItem] = createStore<Omit<GoodsItem, 'barcode'>>({
         folderId: storedItem?.folderId ?? folderId(),
         name: storedItem?.name ?? '',
-        barcode: storedItem?.barcode ?? '',
         price: storedItem?.price ?? null,
         measurmentUnit: storedItem?.measurmentUnit ?? '',
     })
@@ -49,9 +52,12 @@ export const ItemUpsert: Component = () => {
         }
         if (isCreate()) {
             const id = createId()
-            setItemsStore({ ...itemsStore, [id]: item })
+            setItemsStore({
+                ...itemsStore,
+                [id]: { ...item, barcode: barcode() },
+            })
         } else {
-            setItemsStore(params.id!, item)
+            setItemsStore(params.id!, { ...item, barcode: barcode() })
         }
 
         saveToStorage()
@@ -97,13 +103,7 @@ export const ItemUpsert: Component = () => {
                         setItem('name', event.target.value)
                     }}
                 />
-                <input
-                    placeholder="Штрихкод"
-                    value={item.barcode}
-                    onChange={(event) => {
-                        setItem('barcode', event.target.value)
-                    }}
-                />
+                <BarcodeInput barcodeSignal={barcodeSignal} />
                 <input
                     placeholder="Ціна"
                     value={item.price}

@@ -8,16 +8,35 @@ import { Page } from '../../components/page'
 import { PageContent } from '../../components/pageContent'
 import { IconButton } from '../../components/iconButton'
 import {
+    IconBarcode,
     IconCubePlus,
     IconFolderPlus,
     IconListSearch,
 } from '@tabler/icons-solidjs'
+import { openBarcodeScanner } from '../../components/barcodeScanner'
+import { itemsStore } from '../../stores/goods'
 
 export const FolderView: Component = () => {
     const params = useParams<{ id?: string }>()
     const folderId = createMemo(() => params.id ?? null)
 
     const navigate = useNavigate()
+
+    function scanBarcode() {
+        openBarcodeScanner((code) => {
+            const item = Object.entries(itemsStore).find(
+                ([, item]) => item.barcode === code,
+            )
+
+            if (!item) {
+                alert(`Товар зі штрихкодом ${code} відсутній`)
+                return
+            }
+
+            const [id] = item
+            navigate(`/item/${id}`)
+        })
+    }
 
     return (
         <Page>
@@ -49,6 +68,14 @@ export const FolderView: Component = () => {
                     ),
                 ]}
                 rightActions={[
+                    () => (
+                        <IconButton
+                            onClick={scanBarcode}
+                            aria-label="Сканувати штрихкод"
+                        >
+                            <IconBarcode size={48} />
+                        </IconButton>
+                    ),
                     () => (
                         <IconButton
                             onClick={() => {
