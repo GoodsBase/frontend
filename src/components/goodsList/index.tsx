@@ -15,7 +15,9 @@ export const GoodsList: Component<Props> = (props) => {
             (props.folderId === undefined ||
                 record.folderId === props.folderId) &&
             (props.search === undefined ||
-                record.name.includes(props.search) ||
+                record.name
+                    .toLowerCase()
+                    .includes(props.search.toLowerCase()) ||
                 ('barcode' in record && record.barcode.includes(props.search)))
         )
     }
