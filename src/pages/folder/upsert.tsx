@@ -73,7 +73,7 @@ export const FolderUpsert: Component = () => {
                 rightActions={[
                     () => {
                         return (
-                            <IconButton onClick={save}>
+                            <IconButton onClick={save} aria-label="Зберегти">
                                 <IconCheck size={48} />
                             </IconButton>
                         )

@@ -38,6 +38,7 @@ export const FolderHeader: Component<Props> = (props) => {
                                   onClick={() =>
                                       navigate(`/folder/${props.id}/edit`)
                                   }
+                                  aria-label="Видалити папку"
                               >
                                   <IconEdit size={48} />
                               </IconButton>

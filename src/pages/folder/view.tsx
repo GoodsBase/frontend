@@ -32,6 +32,7 @@ export const FolderView: Component = () => {
                             onClick={() => {
                                 navigate(`/folder/create/${folderId() ?? ''}`)
                             }}
+                            aria-label="Створити папку"
                         >
                             <IconFolderPlus size={48} />
                         </IconButton>
@@ -41,6 +42,7 @@ export const FolderView: Component = () => {
                             onClick={() => {
                                 navigate(`/item/create/${folderId() ?? ''}`)
                             }}
+                            aria-label="Додати товар"
                         >
                             <IconCubePlus size={48} />
                         </IconButton>
@@ -52,6 +54,7 @@ export const FolderView: Component = () => {
                             onClick={() => {
                                 navigate(`/search`)
                             }}
+                            aria-label="Пошук"
                         >
                             <IconListSearch size={48} />
                         </IconButton>

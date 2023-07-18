@@ -78,7 +78,10 @@ export const ItemUpsert: Component = () => {
                         : [
                               () => {
                                   return (
-                                      <IconButton onClick={remove}>
+                                      <IconButton
+                                          onClick={remove}
+                                          aria-label="Видалити товар"
+                                      >
                                           <IconTrash size={48} />
                                       </IconButton>
                                   )
@@ -124,7 +127,7 @@ export const ItemUpsert: Component = () => {
                 rightActions={[
                     () => {
                         return (
-                            <IconButton onClick={save}>
+                            <IconButton onClick={save} aria-label="Зберегти">
                                 <IconCheck size={48} />
                             </IconButton>
                         )
