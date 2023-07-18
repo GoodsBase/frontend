@@ -63,7 +63,7 @@ export const FolderUpsert: Component = () => {
             <PageContent>
                 <form
                     onSubmit={(event) => {
-                        event.preventDefault
+                        event.preventDefault()
                         save()
                     }}
                 >

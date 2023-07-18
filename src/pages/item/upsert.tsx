@@ -100,7 +100,7 @@ export const ItemUpsert: Component = () => {
             <PageContent>
                 <form
                     onSubmit={(event) => {
-                        event.preventDefault
+                        event.preventDefault()
                         save()
                     }}
                 >
