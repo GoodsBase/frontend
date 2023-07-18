@@ -130,6 +130,8 @@ export const ItemUpsert: Component = () => {
                             setItem('measurmentUnit', event.target.value)
                         }}
                     />
+
+                    <input type="submit" style={{ display: 'none' }} />
                 </form>
             </PageContent>
             <Footer
