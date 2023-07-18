@@ -17,6 +17,9 @@ dependencies:
   '@tabler/icons-solidjs':
     specifier: ^2.25.0
     version: 2.25.0(solid-js@1.7.7)
+  '@tanstack/solid-virtual':
+    specifier: 3.0.0-beta.54
+    version: 3.0.0-beta.54(solid-js@1.7.7)
   solid-js:
     specifier: ^1.7.7
     version: 1.7.7
@@ -1717,6 +1720,19 @@ packages:
 
   /@tabler/icons@2.25.0:
     resolution: {integrity: sha512-Z+FtSZoG/CM1TMCgg7elUew2m0+qMdh5gutMhvxiIY77KIIsE6L/6fUBy+rPXWE9v7MV296fsnCvbpfgwpXupQ==}
+    dev: false
+
+  /@tanstack/solid-virtual@3.0.0-beta.54(solid-js@1.7.7):
+    resolution: {integrity: sha512-4hVaGcYsSt9bMR04A6biXE6xGdwnu2loVcqgV5tWaFTeF5tjwctwFB4bcLsEIQrSGPEh++NESCShgAXLsGfNEg==}
+    peerDependencies:
+      solid-js: ^1.3.0
+    dependencies:
+      '@tanstack/virtual-core': 3.0.0-beta.54
+      solid-js: 1.7.7
+    dev: false
+
+  /@tanstack/virtual-core@3.0.0-beta.54:
+    resolution: {integrity: sha512-jtkwqdP2rY2iCCDVAFuaNBH3fiEi29aTn2RhtIoky8DTTiCdc48plpHHreLwmv1PICJ4AJUUESaq3xa8fZH8+g==}
     dev: false
 
   /@types/babel__core@7.20.1:

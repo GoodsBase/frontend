@@ -1,8 +1,9 @@
-import { Component, For, createMemo } from 'solid-js'
-import { GoodsItem } from '../goodsItem'
+import { Component, Show, createMemo } from 'solid-js'
 import { GoodsFolder } from '../goodsFolder'
 import { foldersStore, itemsStore } from '../../stores/goods'
 import type * as goodsTypes from '../../types/goods'
+import { createVirtualizer } from '@tanstack/solid-virtual'
+import { GoodsItem } from '../goodsItem'
 
 type Props = {
     folderId?: string | null
@@ -22,25 +23,68 @@ export const GoodsList: Component<Props> = (props) => {
         )
     }
 
+    let parentRef!: HTMLDivElement
+
     const folders = createMemo(() =>
         Object.entries(foldersStore).filter(([, folder]) => check(folder)),
     )
+
     const items = createMemo(() =>
         Object.entries(itemsStore).filter(([, item]) => check(item)),
     )
 
+    const rowVirtualizer = createMemo(() => {
+        const list = [...folders(), ...items()]
+        return createVirtualizer({
+            count: list.length,
+            getScrollElement: () => parentRef,
+            estimateSize: () => 70,
+            getItemKey: (index) => {
+                const [id] = list[index]
+                return id
+            },
+        })
+    })
+
     return (
         <>
-            <For each={folders()}>
-                {([id]) => {
-                    return <GoodsFolder id={id} />
-                }}
-            </For>
-            <For each={items()}>
-                {([id]) => {
-                    return <GoodsItem id={id} />
-                }}
-            </For>
+            <div ref={parentRef}>
+                <div
+                    style={{
+                        height: `${rowVirtualizer().getTotalSize()}px`,
+                        width: '100%',
+                        position: 'relative',
+                    }}
+                >
+                    {rowVirtualizer()
+                        .getVirtualItems()
+                        .map((virtualItem) => (
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    top: 0,
+                                    left: 0,
+                                    width: '100%',
+                                    height: `${virtualItem.size}px`,
+                                    transform: `translateY(${virtualItem.start}px)`,
+                                }}
+                            >
+                                <Show
+                                    when={virtualItem.index < folders().length}
+                                    fallback={
+                                        <GoodsItem
+                                            id={virtualItem.key as string}
+                                        />
+                                    }
+                                >
+                                    <GoodsFolder
+                                        id={virtualItem.key as string}
+                                    />
+                                </Show>
+                            </div>
+                        ))}
+                </div>
+            </div>
         </>
     )
 }
