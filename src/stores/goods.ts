@@ -1,4 +1,4 @@
-import { createStore } from 'solid-js/store'
+import { createStore, reconcile, unwrap } from 'solid-js/store'
 import { GoodsFolder, GoodsItem } from '../types/goods'
 import { createSignal } from 'solid-js'
 
@@ -84,10 +84,24 @@ export function changeFolderItemsCount(folderId: string | null, diff: number) {
     }
 }
 
-type State = {
+export type State = {
     rootItemsCount: number
     folders: Record<string, GoodsFolder>
     items: Record<string, GoodsItem>
+}
+
+export function getState(): State {
+    return {
+        rootItemsCount: rootItemCount(),
+        folders: unwrap(foldersStore),
+        items: unwrap(itemsStore),
+    }
+}
+
+export function setState(state: State) {
+    setFoldersStore(reconcile(state.folders))
+    setItemsStore(reconcile(state.items))
+    setRootItemCount(state.rootItemsCount ?? 0)
 }
 
 const key = 'state'
@@ -96,19 +110,12 @@ export function loadFromStorage() {
     const stored = localStorage.getItem(key)
     if (stored !== null) {
         const parsed = JSON.parse(stored) as State
-        setFoldersStore(parsed.folders)
-        setItemsStore(parsed.items)
-        setRootItemCount(parsed.rootItemsCount ?? 0)
+        setState(parsed)
     }
 }
 
 export function saveToStorage() {
-    const state: State = {
-        folders: foldersStore,
-        items: itemsStore,
-        rootItemsCount: rootItemCount(),
-    }
-
+    const state: State = getState()
     localStorage.setItem(key, JSON.stringify(state))
 }
 

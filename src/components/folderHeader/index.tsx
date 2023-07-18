@@ -1,5 +1,10 @@
 import { Component, Show, createMemo } from 'solid-js'
-import { IconPackage, IconEdit, IconTrash } from '@tabler/icons-solidjs'
+import {
+    IconPackage,
+    IconEdit,
+    IconTrash,
+    IconSettings,
+} from '@tabler/icons-solidjs'
 import {
     foldersStore,
     getFolderItemsCount,
@@ -53,7 +58,16 @@ export const FolderHeader: Component<Props> = (props) => {
                               </IconButton>
                           ),
                       ]
-                    : undefined
+                    : [
+                          () => (
+                              <IconButton
+                                  onClick={() => navigate('/settings')}
+                                  aria-label="Налаштування"
+                              >
+                                  <IconSettings size={48} />
+                              </IconButton>
+                          ),
+                      ]
             }
         />
     )

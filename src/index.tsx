@@ -9,6 +9,7 @@ import { base } from './environment'
 import { ItemUpsert } from './pages/item/upsert'
 import { SearchPage } from './pages/search'
 import { BarcodeDialog } from './components/barcodeScanner'
+import { SettingsPage } from './pages/settings'
 
 const root = document.getElementById('root')
 
@@ -28,6 +29,7 @@ render(
                         component={ItemUpsert}
                     />
                     <Route path={'/search'} component={SearchPage} />
+                    <Route path={'/settings'} component={SettingsPage} />
                 </Routes>
             </Router>
         </>
