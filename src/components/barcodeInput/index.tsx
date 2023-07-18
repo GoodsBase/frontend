@@ -21,7 +21,7 @@ export const BarcodeInput: Component<Props> = (props) => {
             <input
                 class={style.input}
                 value={barcode()}
-                onChange={(event) => {
+                onInput={(event) => {
                     setBarcode(event.target.value)
                 }}
                 placeholder={props.placeholder ?? 'Штрих-код'}
