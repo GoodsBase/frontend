@@ -98,32 +98,39 @@ export const ItemUpsert: Component = () => {
                 }
             />
             <PageContent>
-                <input
-                    placeholder="Назва"
-                    value={item.name}
-                    onChange={(event) => {
-                        setItem('name', event.target.value)
+                <form
+                    onSubmit={(event) => {
+                        event.preventDefault
+                        save()
                     }}
-                />
-                <BarcodeInput barcodeSignal={barcodeSignal} />
-                <input
-                    placeholder="Ціна"
-                    value={item.price}
-                    type="number"
-                    min={0}
-                    step={0.01}
-                    onChange={(event) => {
-                        setItem('price', Number(event.target.value))
-                    }}
-                />
+                >
+                    <input
+                        placeholder="Назва"
+                        value={item.name}
+                        onChange={(event) => {
+                            setItem('name', event.target.value)
+                        }}
+                    />
+                    <BarcodeInput barcodeSignal={barcodeSignal} />
+                    <input
+                        placeholder="Ціна"
+                        value={item.price}
+                        type="number"
+                        min={0}
+                        step={0.01}
+                        onChange={(event) => {
+                            setItem('price', Number(event.target.value))
+                        }}
+                    />
 
-                <input
-                    placeholder="Одиниця виміру"
-                    value={item.measurmentUnit}
-                    onChange={(event) => {
-                        setItem('measurmentUnit', event.target.value)
-                    }}
-                />
+                    <input
+                        placeholder="Одиниця виміру"
+                        value={item.measurmentUnit}
+                        onChange={(event) => {
+                            setItem('measurmentUnit', event.target.value)
+                        }}
+                    />
+                </form>
             </PageContent>
             <Footer
                 rightActions={[

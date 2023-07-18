@@ -61,13 +61,20 @@ export const FolderUpsert: Component = () => {
                 }
             />
             <PageContent>
-                <input
-                    placeholder="Назва"
-                    value={name()}
-                    onChange={(event) => {
-                        setName(event.target.value)
+                <form
+                    onSubmit={(event) => {
+                        event.preventDefault
+                        save()
                     }}
-                />
+                >
+                    <input
+                        placeholder="Назва"
+                        value={name()}
+                        onChange={(event) => {
+                            setName(event.target.value)
+                        }}
+                    />
+                </form>
             </PageContent>
             <Footer
                 rightActions={[

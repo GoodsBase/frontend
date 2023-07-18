@@ -31,6 +31,7 @@ export const BarcodeInput: Component<Props> = (props) => {
                 onClick={() => {
                     openBarcodeScanner(onDetected)
                 }}
+                tabindex="-1"
             >
                 <IconBarcode size={36} />
             </IconButton>
