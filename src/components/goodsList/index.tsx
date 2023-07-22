@@ -1,9 +1,11 @@
-import { Component, Show, createMemo } from 'solid-js'
+import { Component, Match, Show, Switch, createMemo } from 'solid-js'
 import { GoodsFolder } from '../goodsFolder'
 import { foldersStore, itemsStore } from '../../stores/goods'
 import type * as goodsTypes from '../../types/goods'
 import { createVirtualizer } from '@tanstack/solid-virtual'
 import { GoodsItem } from '../goodsItem'
+import style from './style.module.css'
+import { IconCornerLeftDown } from '@tabler/icons-solidjs'
 
 type Props = {
     folderId?: string | null
@@ -33,10 +35,12 @@ export const GoodsList: Component<Props> = (props) => {
         Object.entries(itemsStore).filter(([, item]) => check(item)),
     )
 
+    const listLength = () => folders().length + items().length
+
     const rowVirtualizer = createMemo(() => {
         const list = [...folders(), ...items()]
         return createVirtualizer({
-            count: list.length,
+            count: listLength(),
             getScrollElement: () => parentRef,
             estimateSize: () => 70,
             getItemKey: (index) => {
@@ -46,8 +50,8 @@ export const GoodsList: Component<Props> = (props) => {
         })
     })
 
-    return (
-        <>
+    const List: Component = () => {
+        return (
             <div ref={parentRef}>
                 <div
                     style={{
@@ -85,6 +89,32 @@ export const GoodsList: Component<Props> = (props) => {
                         ))}
                 </div>
             </div>
+        )
+    }
+
+    return (
+        <>
+            <Switch>
+                <Match
+                    when={listLength() === 0 && props.folderId !== undefined}
+                >
+                    <div class={style.center}>
+                        <h2>Товари відстутні</h2>
+                        <div class={style.createItem}>
+                            <IconCornerLeftDown size={36} />
+                            Додати новий
+                        </div>
+                    </div>
+                </Match>
+                <Match when={listLength() === 0 && props.search !== undefined}>
+                    <div class={style.center}>
+                        <h2>Нічого не знайдено</h2>
+                    </div>
+                </Match>
+                <Match when={listLength() > 0}>
+                    <List />
+                </Match>
+            </Switch>
         </>
     )
 }
